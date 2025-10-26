@@ -1,0 +1,166 @@
+id	7
+title	"White Gold Plated Princess"
+price	9.99
+description	"Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day..."
+category	"jewelery"
+image	"https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_t.png"
+rating	
+    rate	3
+    count	400 
+
+
+<p>Quantity : {row.quantity}</p>
+                <hr/>
+                <p>{row.cartItem.id} / 
+                   {row.cartItem.title}</p>
+                <p>price: {row.cartItem.price}/
+                   cat: {row.cartItem.category}</p>
+                <p>{row.cartItem.image}</p>
+                <p>{row.cartItem.rating.rate} Rating /
+                   {row.cartItem.rating.count} Review</p>
+
+
+    
+const Home = ({savedList, onSave, removeItemFunc}) => {
+  const [products, setProducts] = useState([]);   // store products here
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [loading, setLoading] = useState(true);   // loading state
+
+
+  let onLoveButtonClick = (item) => {
+    const isSaved = savedList.some(saved => saved.id === item.id);
+    if (isSaved) {
+      removeItemFunc(item.id);
+    } else {
+      onSave(item);
+    }  
+  }
+
+  useEffect(() => {
+    // fetch data when component mounts
+    fetch("https://fakestoreapi.com/products")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+        const uniqueCategories = ["All", ...new Set(data.map((p) => p.category))];
+        setCategories(uniqueCategories);
+      })
+      .catch((err) => {
+        console.error("Error fetching products:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <p className="p-3">Loading products...</p>;
+
+  const filteredProducts = selectedCategory === "All" ? products : products.filter((p) => p.category === selectedCategory);
+
+  return (
+    <>
+      <div className="mx-0 py-2">
+        <div
+          className="scroll-x lg-padtop"
+          style={{
+          position: "fixed",       // fixed at top
+          top: "55px",             // adjust for navbar height
+          left: 0,
+          right: 0,
+          background: "#fff",
+          zIndex: 1000,
+          overflowX: "auto",       // horizontal scroll
+          whiteSpace: "nowrap",    // keep buttons in one line
+          padding: "15px 15px",
+          paddingBottom: "8px",
+          borderBottom: "1px solid #ccc",
+          display: "flex",
+          gap: "10px",
+          border:0
+        }}
+        >
+          {categories.map((cat, index) => (
+            <button
+              key={index}
+              className={`btn  ${
+                selectedCategory === cat ? "btn-dark" : "btn-light"
+              }`}
+              onClick={() => setSelectedCategory(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="row mt-5 lg-padtop1 gap-2">
+        {filteredProducts.map((item) => (
+          <div
+            key={item.id}
+            className="col-12 col-md-4 col-lg-3 p-3 px-5 bg-light mb-2 border-bottom lg-only"
+          > 
+            <div className="d-flex justify-content-between align-items-start mb-4">
+
+              <div>
+                <div>
+                  <h6 className=" text-secondary rounded fs-6 wall-text">{item.title} </h6>
+                </div>
+                <div className="badge bg-warning text-dark">
+                  {item.category}
+                </div>
+              </div>  
+
+              <div 
+                  className={`btn btn-light px-2 p-1 rounded
+                    ${savedList.some((saved) => saved.id === item.id) ? 'text-danger' : 'text-secondary'}`}
+                  onClick={()=>onLoveButtonClick(item)} >
+                 <FaHeart size={30}/>
+              </div>  
+
+            </div>
+
+            <div className="d-flex justify-content-between align-items-start">
+              <div>
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="img-fluid mb-3"
+                  style={{ height: "100px", width: "100px", objectFit: "contain" }}
+                /> 
+              </div>
+
+              <div className=" d-flex flex-column justify-content-start align-items-start">
+
+                <div className="text-success fw-bold fs-4">${item.price}</div>
+                
+
+                <div className="d-flex my-1">
+
+                    <div className=" btn btn-sm btn-warning px-2 text-dark rounded fs-6 ">
+                      <FaCartPlus size={18}/><span className="ps-2">Add to cart</span>
+                    </div>
+                        
+                    
+
+                </div>
+                
+                {/* <div><FaRegHeart size={25} /></div> */}
+              </div>
+              
+            </div>
+            
+            
+            <p className="small text-muted">{item.description.slice(0, 100)}...</p>
+            <div className="d-flex justify-between align-items-center text-secondary">
+              <FaStar size={18} className="text-warning"/> 
+                <span className={`ms-2 ${item.rating.rate>4? 'text-success' :item.rating.rate>3.5? 'text-info':'text-danger' } `}>
+                  {item.rating.rate} ({item.rating.count} reviews)
+                </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+};
+

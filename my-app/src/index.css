@@ -1,0 +1,148 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+* {
+  user-select: none;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* old IE */
+}
+
+
+.btn-active {
+    /* background: #0000001a; */
+    /* border-bottom: 2px solid white;
+    border-radius: 0; */
+    color:rgb(238, 159, 2);
+}
+
+.dashed-border{
+  border-top:1px dashed orange;
+}
+
+.text-orange{
+  color:orange;
+}
+
+.mb-home-bg{
+    background: #f5f5f5!important;
+}
+
+.nav-item-text{
+    font-size: 12px;
+}
+
+.item-text-15{
+    font-size: 14px;
+}
+
+.text-gray{
+    color: #ccc;
+}
+
+.border-gray{
+    border-color:#ccc;
+}
+
+.form-control:focus, .form-control:hover{
+    box-shadow: none !important;
+    outline: none !important;
+    border: 1px solid rgb(243, 182, 0);
+}
+
+.faded-text {
+  background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.1));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.wall-text {
+  color: #111110!important;
+}
+
+.border-bg{
+  border-color:#121212;
+}
+
+.text-bottom-nav-icon{
+  color:#707070;
+}
+
+.scroll-x {
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch; /* smooth scroll on mobile */
+  
+  /* Hide scrollbar for IE, Edge */
+  -ms-overflow-style: none;
+
+  /* Hide scrollbar for Firefox */
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for Chrome, Safari, Opera */
+.scroll-x::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+
+@media screen and (min-width: 1000px) {
+  /* Large-screen (desktop) tweaks */
+  .container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .mb-home-bg{
+    background: #fff!important;
+  }
+
+
+  .mbtm-lg{
+    margin-top: 1.5rem;  
+  }
+
+  .lg-side{
+    margin-left: 220px;
+  }
+
+  /* Slightly larger nav labels on wide viewports */
+  .nav-item-text {
+    font-size: 14px;
+  }
+
+  /* Make hero/wall text more prominent on large screens */
+  .wall-text {
+    font-size: 1.25rem;
+    letter-spacing: 0.6px;
+  }
+
+  /* Slightly larger buttons for easier clicking on desktop */
+  .btn {
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+  }
+
+  /* Small spacing tweak for horizontal scrollers on large screens */
+  .scroll-x {
+    padding-bottom: 0.5rem;
+  }
+
+  .lg-padtop{
+    margin-top: 1.5rem;
+  }
+
+  .lg-padtop1{
+    padding-top: 3rem;
+  }
+
+
+  .lg-only{
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+}
