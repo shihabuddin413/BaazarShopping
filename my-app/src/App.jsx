@@ -115,7 +115,13 @@ const MainApp = () => {
                                         cartItemList ={cartItemList}
                                         removeCartItemFunc = {handleRemoveCartItem}
                                         />;
-    if (crrTab === "Saved") return <Save savedList={savedList} onRemove={handleRemoveItem}/>;
+    if (crrTab === "Saved") return <Save savedList={savedList} 
+                                         onRemove={handleRemoveItem}
+                                         removeItemFunc={handleRemoveItem}
+                                         handleSaveCartFunc={handleSaveCartItem}
+                                         cartItemList ={cartItemList}
+                                         removeCartItemFunc = {handleRemoveCartItem}
+                                        />;
     if (crrTab === "Setting") return <Setting />;
     if (crrTab === "Cart") return <Cart cartItemList={cartItemList} 
                                         handleEmptyCartFunc = {handleEmptyCart}

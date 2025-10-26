@@ -6,7 +6,7 @@ import ModalProductCard from './ModalProductCard';
 
 import { useState } from "react";
 
-const Save = ({ savedList, onRemove }) => {
+const Save = ({ savedList, onRemove, handleSaveCartFunc,cartItemList,removeCartItemFunc }) => {
 
   const { theme } = useTheme();
   const colors = themeColors[theme];
@@ -23,6 +23,10 @@ const Save = ({ savedList, onRemove }) => {
     setShowModal(false);
     setTimeout(() => setSelectedItem(null), 300); // smooth fade effect
   };
+
+  const checkItemInCart = (product) =>{
+    return cartItemList.some(item => item.id === product.id);
+  }
 
 
   return (
@@ -48,7 +52,7 @@ const Save = ({ savedList, onRemove }) => {
                             onClick={() => handleItemClick(item)}
                             style={{ cursor: 'pointer' }}
                         >
-
+                            
                             <div className="row align-items-center">
                                 <div className="col-2">
                                     <img
@@ -58,11 +62,16 @@ const Save = ({ savedList, onRemove }) => {
                                         style={{ height:"50px", width: "50px", objectFit: "contain" }}
                                     /> 
                                 </div>
-                                <div className="col-5">
-                                    <p className={`${colors.text} pt-3`}>{item.title} </p>
+                                <div className="col-7">
+                                    
+                                    { checkItemInCart(item) ?  
+                                    <div>
+                                    <p className="badge bg-danger m-0">Item is already in cart</p>
+                                    </div> :'' }
+                                    <p className={`${colors.text}`}>{item.title} </p>
                                 </div>
                                 
-                                <div className="col-4 d-flex justify-content-end align-items-center">
+                                <div className="col-2 ms-auto text-end d-flex justify-content-end align-items-center">
                                     <button 
                                         className="btn btn-warning" 
                                         onClick={(e) => {
@@ -88,6 +97,9 @@ const Save = ({ savedList, onRemove }) => {
                handleClose = {handleClose}
                selectedItem = {selectedItem}
                colors = {colors}
+               handleSaveCartItem={handleSaveCartFunc}
+               cartItemList={cartItemList}
+               removeCartItemFunc = {removeCartItemFunc}
             />
         )}
     </>
